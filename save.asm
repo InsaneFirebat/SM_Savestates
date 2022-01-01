@@ -5,7 +5,7 @@
 lorom
 
 ; Savestate code variables
-!FREESPACE = $80F000 ; repoint to anywhere in banks $80-BF, $80 preferred
+!SAVESTATE_FREESPACE = $80F500 ; repoint to anywhere in banks $80-BF, $80 preferred
 !RERANDOMIZE ?= 1 ; set to 0 to disable RNG randomization on loadstate
 !SAVE_INPUTS = #$6010 ; Select + Y + R
 !LOAD_INPUTS = #$6020 ; Select + Y + L
@@ -38,6 +38,22 @@ lorom
 !MUSIC_BANK = $07F3
 !MUSIC_TRACK = $07F5
 !MUSIC_ROUTINE = $808FC1
+
+
+; Set ROOMTIMER to 1 to display a room timer to the HUD under Grapple and Xray icons
+!ROOMTIMER ?= 0
+!ROOMTIMER_FREESPACE = $9DFD00 ; repoint to anywhere in banks $80-BF
+!ROOMTIMER_BANK80 = $80FC00
+if !ROOMTIMER
+incsrc infohud.asm
+endif
+
+!ram_realtime_room = !WRAM_START+$02
+!ram_last_realtime_room = !WRAM_START+$04
+!ram_transition_flag = !WRAM_START+$06
+
+!ram_tmp_1 = $C4
+!ram_tmp_2 = $C6
 
 
 ; Patch out copy protection
